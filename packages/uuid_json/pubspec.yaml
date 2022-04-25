@@ -1,0 +1,12 @@
+name: uuid_json
+version: 0.1.0+1
+publish_to: none
+
+environment:
+  sdk: ">=2.16.0 <3.0.0"
+
+dependencies:
+  uuid: ^3.0.4
+  json_annotation: ^4.4.0
+
+

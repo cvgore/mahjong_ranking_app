@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -21,7 +22,10 @@ class GamesOverviewBloc extends Bloc<GamesOverviewEvent, GamesOverviewState> {
       GamesSubscriptionRequested event,
       Emitter<GamesOverviewState> emit,
       ) async {
-    emit(state.copyWith(status: () => GamesOverviewStatus.loading));
+    emit(state.copyWith(
+        status: () => GamesOverviewStatus.loading,
+        games: () => []
+    ));
 
     await emit.forEach<List<Game>>(
       _gamesRepository.getGames(),

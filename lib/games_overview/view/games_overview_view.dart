@@ -21,10 +21,19 @@ class GamesOverviewPage extends StatelessWidget {
 class GamesOverviewView extends StatelessWidget {
   const GamesOverviewView({Key? key}) : super(key: key);
 
+  Future<void> _onRefresh(BuildContext context) async {
+    context.read<GamesOverviewBloc>().add(const GamesSubscriptionRequested());
+  }
+
+  Widget _refresher({required BuildContext context, required Widget child}) {
+    return RefreshIndicator(
+      onRefresh: () async => _onRefresh(context),
+      child: child,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final state = context.watch<GamesOverviewBloc>().state;
-
     return MultiBlocListener(
       listeners: [
         BlocListener<GamesOverviewBloc, GamesOverviewState>(
@@ -48,27 +57,47 @@ class GamesOverviewView extends StatelessWidget {
             if (state.status == GamesOverviewStatus.loading) {
               return const Center(child: CircularProgressIndicator());
             } else if (state.status != GamesOverviewStatus.success) {
-              return const SizedBox();
+              return _refresher(context: context, child: const SizedBox());
             } else {
-              return Center(
-                child: Text(
-                  "No games found",
-                  style: Theme.of(context).textTheme.caption,
-                ),
-              );
+              return _refresher(
+                  context: context,
+                  child: CustomScrollView(
+                    slivers: [
+                      SliverFillRemaining(
+                        hasScrollBody: false,
+                        child: Flex(
+                          direction: Axis.vertical,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(5),
+                              child: Text("😕",
+                                  style: Theme.of(context).textTheme.headline4),
+                            ),
+                            Text(
+                              "No games found",
+                              style: Theme.of(context).textTheme.caption,
+                            ),
+                          ],
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.max,
+                        ),
+                      )
+                    ],
+                  ));
             }
           }
 
-          return Scrollbar(
-            child: ListView(
-              children: [
-                for (final game in state.games)
-                  GameListTile(
-                    game: game,
-                  ),
-              ],
-            ),
-          );
+          return _refresher(
+              context: context,
+              child: Scrollbar(
+                  child: ListView(
+                children: [
+                  for (final game in state.games)
+                    GameListTile(
+                      game: game,
+                    ),
+                ],
+              )));
         },
       ),
     );

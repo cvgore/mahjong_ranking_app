@@ -13,5 +13,12 @@ class UuidValueJsonConverter implements JsonConverter<UuidValue, String> {
   String toJson(UuidValue object) {
     return object.uuid;
   }
+}
 
+extension UuidValueNull on UuidValue {
+  static const String UUID_EMPTY = "00000000-0000-0000-0000-000000000000";
+
+  static get empty => UuidValue(UUID_EMPTY, false);
+
+  get isEmpty => uuid == UUID_EMPTY;
 }

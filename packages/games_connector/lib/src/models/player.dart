@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:uuid/uuid.dart';
-import 'package:uuid_json/uuid_json.dart';
+import 'package:uuid_extensions/uuid_extensions.dart';
 
 import 'json_map.dart';
 

@@ -19,17 +19,21 @@ dependencies:
   json_annotation: ^4.4.0
   wakelock: ^0.6.1
   flutter_form_builder: ^7.1.1
-  sentry_flutter: ^6.4.0
-  flutter_signin_button: ^2.0.0
   flutter_local_notifications: ^9.4.0
   permission_handler: ^9.2.0
-  get_it: ^7.2.0
   equatable: ^2.0.3
   connectivity_plus: ^2.2.1
   flutter_services_binding: ^0.1.0
   intl: ^0.17.0
-  google_sign_in: ^5.2.4
+  google_sign_in: ^5.3.0
+  auth_buttons: ^2.0.4
   firebase_core: ^1.15.0
+  firebase_auth: ^3.3.16
+  flow_builder: ^0.0.6
+  uuid: ^3.0.4
+  url_launcher: ^6.1.0
+  flutterfire_ui: ^0.4.0+4
+  package_info_plus: ^1.4.2
 
   games_connector:
     path: packages/games_connector
@@ -43,6 +47,12 @@ dependencies:
   seed_games_connector:
     path: packages/seed_games_connector
 
+  auth_repository:
+    path: packages/auth_repository
+
+  uuid_extensions:
+    path: packages/uuid_extensions
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -50,8 +60,8 @@ dev_dependencies:
   flutter_lints: ^1.0.0
   build_runner: ^2.0.0
   json_serializable: ^6.0.0
+  dart_style: ^2.2.3
 
 flutter:
 
   uses-material-design: true
-  generate: true

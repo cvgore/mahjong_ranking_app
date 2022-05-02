@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:auth_repository/auth_repository.dart';
-import 'package:inmemory_cache/inmemory_cache.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:inmemory_cache/inmemory_cache.dart';
 import 'package:meta/meta.dart';
 
 class LogInWithGoogleFailure implements Exception {
@@ -24,7 +24,7 @@ class LogInWithGoogleFailure implements Exception {
         );
       case 'operation-not-allowed':
         return const LogInWithGoogleFailure(
-          'Operation is not allowed.  Please contact support.',
+          'Operation is not allowed. Please contact support.',
         );
       case 'user-disabled':
         return const LogInWithGoogleFailure(
@@ -57,14 +57,14 @@ class LogInWithGoogleFailure implements Exception {
 
 class LogOutFailure implements Exception {}
 
-class AuthenticationRepository {
-  AuthenticationRepository({
+class AuthRepository {
+  AuthRepository({
     InMemoryCacheClient? cache,
     firebase_auth.FirebaseAuth? firebaseAuth,
-    GoogleSignIn? googleSignIn,
+    required GoogleSignIn googleSignIn,
   })  : _cache = cache ?? InMemoryCacheClient(),
         _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance,
-        _googleSignIn = googleSignIn ?? GoogleSignIn.standard();
+        _googleSignIn = googleSignIn;
 
   final InMemoryCacheClient _cache;
   final firebase_auth.FirebaseAuth _firebaseAuth;
@@ -74,7 +74,7 @@ class AuthenticationRepository {
   static const userCacheKey = '__user_cache_key__';
 
   Stream<User> get user {
-    return _firebaseAuth.authStateChanges().map((firebaseUser) {
+    return _firebaseAuth.idTokenChanges().map((firebaseUser) {
       final user = firebaseUser == null ? User.empty : firebaseUser.toUser;
       _cache.write(key: userCacheKey, value: user);
       return user;
@@ -90,14 +90,14 @@ class AuthenticationRepository {
       final googleUser = await _googleSignIn.signIn();
       final googleAuth = await googleUser!.authentication;
       final credential = firebase_auth.GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
+        accessToken: googleAuth.accessToken,
       );
 
       await _firebaseAuth.signInWithCredential(credential);
-    } on FirebaseAuthException catch (e) {
-      throw LogInWithGoogleFailure.fromCode(e.code);
-    } catch (_) {
+    } on FirebaseAuthException catch (ex) {
+      throw LogInWithGoogleFailure.fromCode(ex.code);
+    } catch (ex) {
       throw const LogInWithGoogleFailure();
     }
   }

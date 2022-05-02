@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "223652988455",
+    "project_id": "mahjong-ranking-app",
+    "storage_bucket": "mahjong-ranking-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:223652988455:android:80c859db2a6008b8dab002",
+        "android_client_info": {
+          "package_name": "com.cvgore.mahjong_ranking_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "223652988455-bi3n2154lv6akf2pgsddspmksesblh3h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cvgore.mahjong_ranking_app",
+            "certificate_hash": "b77889035a924300739bf99cecfe83a4f8fbe175"
+          }
+        },
+        {
+          "client_id": "223652988455-p7m9sk1m163ctp7k450v52k7adth2ger.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWmdsRr9SyhqQAJzOTBZeyLA0_4Ws23s0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "223652988455-p7m9sk1m163ctp7k450v52k7adth2ger.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

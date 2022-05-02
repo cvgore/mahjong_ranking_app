@@ -22,11 +22,7 @@ class GameListTile extends StatelessWidget {
       final player = game.players[i];
 
       yield Text(player.displayName,
-          style: i == curplayer
-              ? TextStyle(
-                  inherit: true,
-                  color: Color(theme.colorScheme.secondary.value))
-              : null);
+          style: i == curplayer ? TextStyle(inherit: true, color: Color(theme.colorScheme.secondary.value)) : null);
 
       if (player != game.players.last) {
         yield const Text(" ");
@@ -52,8 +48,7 @@ class GameListTile extends StatelessWidget {
       ),
       trailing: game.finished
           ? Text("end", style: theme.textTheme.titleMedium)
-          : Text("${game.wind.toSymbol()} ${game.round}",
-              style: theme.textTheme.titleMedium),
+          : Text("${game.wind.toSymbol()} ${game.round}", style: theme.textTheme.titleMedium),
     );
   }
 }
